@@ -144,7 +144,7 @@
         function goToPage(pageNumber, response) {
             const pages = document.querySelectorAll('.container');
             pages.forEach(page => page.style.display = 'none');
-            // Stop all audio players when switching pages
+            
             document.querySelectorAll('audio').forEach(audio => audio.pause());
 
             if (response) {
@@ -152,7 +152,7 @@
             }
 
             document.getElementById(`page${pageNumber}`).style.display = 'block';
-            // Play the audio for the selected page
+            
             const audioElement = document.getElementById(`audio${pageNumber}`);
             if (audioElement) {
                 audioElement.play();
@@ -163,10 +163,10 @@
             const button = document.getElementById('hindiNaButton');
             const currentText = button.innerText;
 
-            // Array of possible texts to cycle through
+            
             const texts = ['hindi na', 'hindi na nga', 'wala akong pake sayo susan', 'tigilan mo na ako', 'ayoko na sayo', 'aw'];
 
-            // Find next text in the array
+            
             let nextText = texts[(texts.indexOf(currentText) + 1) % texts.length];
             button.innerText = nextText;
 
