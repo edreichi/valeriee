@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Survey</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('background.gif') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            max-width: 90%;
+            padding: 20px;
+            background-color: rgba(255, 228, 233, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            color: #444;
+            font-size: 1.5rem;
+        }
+
+        button {
+            background-color: #ffb6c1;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #ff8fa3;
+        }
+
+        .options {
+            margin-top: 20px;
+        }
+
+        .options button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .gif-container img {
+            max-width: 100%;
+            max-height: 50vh;
+            margin: 0 auto;
+            display: block;
+            border-radius: 8px;
+        }
+
+        #page1, #page2, #page3, #page4, #page5, #page6 {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        audio {
+            display: none; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="page1">
+        <h1>busy ikaw?🥺 </h1>
+        <div class="options">
+            <button onclick="goToPage(2, 'yes')">Yes</button>
+            <button onclick="goToPage(3, 'no')">No</button>
+        </div>
+        <audio id="audio1" autoplay loop>
+            <source src="background1.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <div class="container gif-container" id="page2" style="display: none;">
+        <h1>awe ): omki po 🥺 .</h1>
+        <img src="busy.gif" alt="Busy GIF">
+        <button onclick="goToPage(1)">Back</button>
+        <audio id="audio2" autoplay loop>
+            <source src="background2.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <div class="container gif-container" id="page3" style="display: none;">
+        <h1>totoo?🥺.</h1>
+        <img src="not-busy.gif" alt="Not Busy GIF">
+        <button onclick="goToPage(4, 'yes di ako busy')">yes di ako busy wag ka makulit susan</button>
+        <button onclick="goToPage(1)">Back</button>
+        <audio id="audio3" autoplay loop>
+            <source src="background3.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <div class="container gif-container" id="page4" style="display: none;">
+        <h1>hindi mo na ba ako mapapatawad? 🥺</h1>
+        <img src="question.gif" alt="Question GIF">
+        <div class="options">
+            <button onclick="goToPage(5, 'bati na tayo')">bati na tayoooo</button>
+            <button id="hindiNaButton" onclick="changeButtonText()">hindi na</button>
+        </div>
+        <audio id="audio4" autoplay loop>
+            <source src="background4.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <div class="container gif-container" id="page5" style="display: none;">
+        <h1>yayyyy! I miss you babi ❤️</h1>
+        <img src="happy.gif" alt="Happy GIF">
+        <button onclick="goToPage(1)">Back</button>
+        <audio id="audio5" autoplay loop>
+            <source src="background5.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <div class="container gif-container" id="page6" style="display: none;">
+        <h1>😭😭😭 okay, I understand...</h1>
+        <img src="sad.gif" alt="Sad GIF">
+        <button onclick="goToPage(1)">Back</button>
+        <audio id="audio6" autoplay loop>
+            <source src="background6.mp3" type="audio/mp3">
+        </audio>
+    </div>
+
+    <script>
+        function goToPage(pageNumber, response) {
+            const pages = document.querySelectorAll('.container');
+            pages.forEach(page => page.style.display = 'none');
+            // Stop all audio players when switching pages
+            document.querySelectorAll('audio').forEach(audio => audio.pause());
+
+            if (response) {
+                console.log(`Response: ${response}`);
+            }
+
+            document.getElementById(`page${pageNumber}`).style.display = 'block';
+            // Play the audio for the selected page
+            const audioElement = document.getElementById(`audio${pageNumber}`);
+            if (audioElement) {
+                audioElement.play();
+            }
+        }
+
+        function changeButtonText() {
+            const button = document.getElementById('hindiNaButton');
+            const currentText = button.innerText;
+
+            // Array of possible texts to cycle through
+            const texts = ['hindi na', 'hindi na nga', 'wala akong pake sayo susan', 'tigilan mo na ako', 'ayoko na sayo', 'aw'];
+
+            // Find next text in the array
+            let nextText = texts[(texts.indexOf(currentText) + 1) % texts.length];
+            button.innerText = nextText;
+
+           
+            if (nextText === 'aw') {
+                goToPage(6); 
+            }
+        }
+    </script>
+</body>
+</html>
